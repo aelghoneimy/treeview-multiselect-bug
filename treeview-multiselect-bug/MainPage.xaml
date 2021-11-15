@@ -1,0 +1,46 @@
+﻿<Page
+    x:Class="treeview_multiselect_bug.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:treeview_multiselect_bug"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+          Padding="100">
+        <SplitView IsPaneOpen="True"
+                   DisplayMode="Inline"
+                   OpenPaneLength="296">
+            <SplitView.Pane>
+                <muxc:TreeView Name="DessertTree"
+                                      SelectionMode="Multiple"
+                                      ItemsSource="{x:Bind DataSource}">
+                    <muxc:TreeView.ItemTemplate>
+                        <DataTemplate x:DataType="local:Item">
+                            <muxc:TreeViewItem
+                                ItemsSource="{x:Bind Children}"
+                                Content="{x:Bind Name}"/>
+                        </DataTemplate>
+                    </muxc:TreeView.ItemTemplate>
+                </muxc:TreeView>
+            </SplitView.Pane>
+
+            <StackPanel Grid.Column="1" Margin="12,0">
+                <Button Content="Select all"
+                        Click="SelectAllButton_Click"/>
+                <Button Content="Create order"
+                        Click="OrderButton_Click"
+                        Margin="0,12"/>
+                <TextBlock Text="Your flavor selections:"
+                           Style="{StaticResource CaptionTextBlockStyle}"/>
+                <TextBlock x:Name="FlavorList" Margin="0,0,0,12"/>
+                <TextBlock Text="Your topping selections:"
+                           Style="{StaticResource CaptionTextBlockStyle}"/>
+                <TextBlock x:Name="ToppingList"/>
+            </StackPanel>
+        </SplitView>
+    </Grid>
+</Page>
